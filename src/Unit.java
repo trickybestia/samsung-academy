@@ -9,6 +9,8 @@ public abstract class Unit {
         return health == 0;
     }
 
+    public void onRound() {}
+
     public AttackResult attack(Unit target) {
         boolean criticalAttack = Util.randomBoolean(criticalAttackChance);
         boolean attackParried = target.applyDamage(power);

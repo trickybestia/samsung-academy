@@ -6,6 +6,11 @@ public class Wizard extends Unit {
         defense = 40;
     }
 
+    @Override
+    public void onRound() {
+        mana += 4;
+    }
+
     public int getMana() {
         return mana;
     }

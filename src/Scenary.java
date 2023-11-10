@@ -11,8 +11,11 @@ public class Scenary {
     protected int state = STATE_INPUT_PLAYER1;
     protected int round;
     protected Scanner scanner;
+    protected final PlayerController player1Controller, player2Controller;
 
-    public Scenary() {
+    public Scenary(PlayerController player1Controller, PlayerController player2Controller) {
+        this.player1Controller = player1Controller;
+        this.player2Controller = player2Controller;
         scanner = new Scanner(System.in);
     }
 
@@ -28,7 +31,7 @@ public class Scenary {
             winnerNumber = 2;
         }
 
-        System.out.printf(Util.PLAYER_WON_MESSAGE_FORMAT, winner, winnerNumber);
+        System.out.printf(Util.PLAYER_WON_MESSAGE_FORMAT, winner.getName(), winnerNumber);
     }
 
     public void step(Game game) {
@@ -45,17 +48,30 @@ public class Scenary {
             }
             case STATE_FIGHT -> {
                 int playerNumber = round % 2 + 1;
+
+                if (round % 2 == 0 && round != 0) {
+                    for (Unit unit : game.getPlayer1().getUnits()) {
+                        unit.onRound();
+                    }
+                    for (Unit unit : game.getPlayer2().getUnits()) {
+                        unit.onRound();
+                    }
+                }
+
                 Player player, enemy;
+                PlayerController playerController;
 
                 if (playerNumber == 1) {
                     player = game.getPlayer1();
                     enemy = game.getPlayer2();
+                    playerController = player1Controller;
                 } else {
                     player = game.getPlayer2();
                     enemy = game.getPlayer1();
+                    playerController = player2Controller;
                 }
 
-                fight(player, enemy, playerNumber);
+                fight(game, player, enemy, playerNumber, playerController);
 
                 round++;
             }
@@ -67,7 +83,7 @@ public class Scenary {
 
         String name = scanner.nextLine();
 
-        System.out.println(Util.INPUT_PLAYER_INPUT_UNITS_FORMAT);
+        System.out.print(Util.INPUT_PLAYER_INPUT_UNITS_FORMAT);
 
         ArrayList<Unit> units = new ArrayList<>();
 
@@ -89,16 +105,16 @@ public class Scenary {
         return new Player(name, units);
     }
 
-    protected void fight(Player player, Player enemy, int playerNumber) {
+    protected void fight(Game game, Player player, Player enemy, int playerNumber, PlayerController playerController) {
         System.out.printf(Util.FIGHT_ROUND_MESSAGE_FORMAT, round + 1, player.getName(), playerNumber);
         printUnits(player.getUnits());
 
-        for (int i = 0; i != player.getUnits().size(); i++) {
+        for (int i = 0; i != player.getUnits().size() && game.state() == Game.STATE_RUNNING; i++) {
             System.out.printf(Util.FIGHT_SELECTED_UNIT_NUMBER_FORMAT + " ", i + 1);
             System.out.printf(Util.FIGHT_ENEMY_UNIT_SELECTION_FORMAT);
             printUnits(enemy.getUnits());
 
-            int enemyUnitIndex = scanner.nextInt() - 1;
+            int enemyUnitIndex = playerController.selectAttackTarget(player, enemy, i);
             Unit enemyUnit = enemy.getUnits().get(enemyUnitIndex);
 
             printAttackResult(player.getUnits().get(i).attack(enemyUnit));

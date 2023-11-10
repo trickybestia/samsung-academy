@@ -7,6 +7,11 @@ public class Knight extends Unit {
     }
 
     @Override
+    public void onRound() {
+        stamina += 10;
+    }
+
+    @Override
     public AttackResult attack(Unit target) {
         if (stamina >= 20) {
             stamina -= 20;

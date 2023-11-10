@@ -1,4 +1,6 @@
 public class Util {
+    public static final String SELECT_GAME_MODE_FORMAT = "Выберите режим игры (M, HA, A): ";
+
     public static final String INPUT_PLAYER_INPUT_NAME_FORMAT = "Игрок %d, введите своё имя: ";
     public static final String INPUT_PLAYER_INPUT_UNITS_FORMAT = "Введите 3 героев за которых вы будете играть (W, K, T): ";
 

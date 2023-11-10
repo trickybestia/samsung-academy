@@ -1,32 +1,27 @@
 public class Wizard extends Unit {
     protected int mana = 100;
 
-    public Wizard(String name) {
-        super(name);
-
+    public Wizard() {
         power = 25;
-        defense = 80;
+        defense = 40;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 
     @Override
-    public void attack(Unit target) {
+    public AttackResult attack(Unit target) {
         if (mana >= 10) {
-            super.attack(target);
-
             mana -= 10;
-        }
-    }
 
-    @Override
-    public String toString() {
-        return "Wizard{" +
-                "mana=" + mana +
-                ", health=" + health +
-                ", defense=" + defense +
-                ", power=" + power +
-                ", criticalChance=" + criticalChance +
-                ", parryChance=" + parryChance +
-                ", name='" + name + '\'' +
-                '}';
+            return super.attack(target);
+        }
+
+        return AttackResult.FAILED;
     }
 }

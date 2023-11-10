@@ -1,76 +1,52 @@
-public class Unit {
+public abstract class Unit {
     protected int health = 100;
     protected int defense = 100;
     protected int power = 10;
+    protected float criticalAttackChance = 0.1f;
+    protected float attackParryChance = 0.1f;
 
-    protected float criticalChance = 0.1f;
-    protected float parryChance = 0.1f;
+    public boolean isDead() {
+        return health == 0;
+    }
 
-    protected String name;
+    public AttackResult attack(Unit target) {
+        boolean criticalAttack = Util.randomBoolean(criticalAttackChance);
+        boolean attackParried = target.applyDamage(power);
 
-    public Unit(String name) {
-        this.name = name;
+        if (attackParried) {
+            target.attack(this);
+        }
 
-        Game.playersCount++;
+        return new AttackResult(true, criticalAttack, attackParried);
+    }
+
+    public boolean applyDamage(int damage) {
+        boolean attackParried = Util.randomBoolean(attackParryChance);
+
+        if (!attackParried) {
+            health = Math.max(0, health - damage);
+        }
+
+        return attackParried;
     }
 
     public int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getDefense() {
         return defense;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
     }
 
     public int getPower() {
         return power;
     }
 
-    public void setPower(int power) {
-        this.power = power;
+    public float getCriticalAttackChance() {
+        return criticalAttackChance;
     }
 
-    public float getCriticalChance() {
-        return criticalChance;
-    }
-
-    public void setCriticalChance(float criticalChance) {
-        this.criticalChance = criticalChance;
-    }
-
-    public float getParryChance() {
-        return parryChance;
-    }
-
-    public void setParryChance(float parryChance) {
-        this.parryChance = parryChance;
-    }
-
-    @Override
-    public String toString() {
-        return "Unit{" +
-                "health=" + health +
-                ", defense=" + defense +
-                ", power=" + power +
-                ", criticalChance=" + criticalChance +
-                ", parryChance=" + parryChance +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    public void attack(Unit target) {
-        target.applyDamage(power);
-    }
-
-    public void applyDamage(int damage) {
-        health -= damage;
+    public float getAttackParryChance() {
+        return attackParryChance;
     }
 }

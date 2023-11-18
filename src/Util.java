@@ -4,10 +4,10 @@ public class Util {
     public static final String INPUT_PLAYER_INPUT_NAME_FORMAT = "Игрок %d, введите своё имя: ";
     public static final String INPUT_PLAYER_INPUT_UNITS_FORMAT = "Введите 3 героев за которых вы будете играть (W, K, T): ";
 
-    public static final String UNIT_TO_STRING_FORMAT = "U Здоровье: %d Защита: %d Сила: %d";
-    public static final String KNIGHT_TO_STRING_FORMAT = "K Здоровье: %d Защита: %d Сила: %d Выносливость: %d";
-    public static final String WIZARD_TO_STRING_FORMAT = "W Здоровье: %d Защита: %d Сила: %d Мана: %d";
-    public static final String TERMINATOR_TO_STRING_FORMAT = "T Здоровье: %d Защита: %d Сила: %d Патроны: %d";
+    public static final String UNIT_TO_STRING_FORMAT = "U Здоровье: %d Сила: %d";
+    public static final String KNIGHT_TO_STRING_FORMAT = "K Здоровье: %d Сила: %d Выносливость: %d";
+    public static final String WIZARD_TO_STRING_FORMAT = "W Здоровье: %d Сила: %d Мана: %d";
+    public static final String TERMINATOR_TO_STRING_FORMAT = "T Здоровье: %d Сила: %d Патроны: %d";
 
     public static final String FIGHT_ROUND_MESSAGE_FORMAT = "Раунд %d. Ходит %s (игрок %d). Ваши герои:%n";
     public static final String FIGHT_SELECTED_UNIT_NUMBER_FORMAT = "Вы атакуете героем %d.";

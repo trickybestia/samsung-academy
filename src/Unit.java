@@ -1,6 +1,5 @@
 public abstract class Unit {
     protected int health = 100;
-    protected int defense = 100;
     protected int power = 10;
     protected float criticalAttackChance = 0.1f;
     protected float attackParryChance = 0.1f;
@@ -34,10 +33,6 @@ public abstract class Unit {
 
     public int getHealth() {
         return health;
-    }
-
-    public int getDefense() {
-        return defense;
     }
 
     public int getPower() {

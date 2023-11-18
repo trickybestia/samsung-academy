@@ -3,7 +3,6 @@ public class Wizard extends Unit {
 
     public Wizard() {
         power = 25;
-        defense = 40;
     }
 
     @Override

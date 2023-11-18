@@ -3,7 +3,6 @@ public class Knight extends Unit {
 
     public Knight() {
         power = 20;
-        defense = 60;
     }
 
     @Override

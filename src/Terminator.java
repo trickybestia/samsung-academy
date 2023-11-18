@@ -3,7 +3,6 @@ public class Terminator extends Unit {
 
     public Terminator() {
         power = 40;
-        defense = 80;
     }
 
     @Override
